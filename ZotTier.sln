@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZotTier_Backend", "ZotTier_Backend\ZotTier_Backend.csproj", "{4AF64EB3-D51A-4629-B02A-840BB5C4C166}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AF64EB3-D51A-4629-B02A-840BB5C4C166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AF64EB3-D51A-4629-B02A-840BB5C4C166}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AF64EB3-D51A-4629-B02A-840BB5C4C166}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AF64EB3-D51A-4629-B02A-840BB5C4C166}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
