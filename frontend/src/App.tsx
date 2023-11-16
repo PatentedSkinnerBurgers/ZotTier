@@ -2,6 +2,7 @@ import React from "react";
 
 function App() {
   const word: string = "word";
+
   return (
     <div className="App">
       {word}
