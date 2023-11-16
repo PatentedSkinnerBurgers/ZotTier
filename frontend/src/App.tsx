@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       {word}
-      <p className="text-red-600">hey</p>
+      <p className="text-3xl">hey</p>
     </div>
   );
 }
