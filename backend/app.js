@@ -5,10 +5,12 @@ const port = process.env.PORT || 5000;
 
 // IMPORT ROUTES
 const user = require('./routes/user');
+const tierlist_browse = require('./routes/tierlist-browse');
 
 app.use(cors())
 
 app.use('/user', user);
+app.use('/tierlist-browse', tierlist_browse)
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
