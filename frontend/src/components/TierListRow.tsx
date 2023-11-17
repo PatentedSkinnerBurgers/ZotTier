@@ -20,7 +20,11 @@ const TierListRow = ({ label, items }: Props) => {
     backgroundColor: isOver ? "green" : undefined,
   };
   return (
-    <div ref={setNodeRef} style={style} className="w-full h-full">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="flex flex-wrap items-center w-full h-full"
+    >
       {items.map(({ name, imageUrl, index }) => (
         <React.Fragment key={index}>
           <ListItem name={name} imageUrl={imageUrl} index={index} />
