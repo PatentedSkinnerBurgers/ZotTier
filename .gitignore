@@ -4,4 +4,6 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea
-/ZotTier_Backend/.vs/*
+/backend/node_modules/
+/backend/.env
+/frontend/.env
