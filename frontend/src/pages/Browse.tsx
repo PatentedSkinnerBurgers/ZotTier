@@ -2,6 +2,7 @@ import "../assets/css/pages.css";
 import React from "react";
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import Card from '../components/Card';
 
 type Props = {};
 
@@ -54,20 +55,19 @@ const Browse = (props: Props) => {
 
   return (
     <div className="browse-gradient h-screen min-h-[300px] px-10 pt-10">
-      <h1 className="text-white mt-8 font-urbanist text-5xl px-10">Showing all tier lists</h1>
-      {lists && <div className="cards flex flex-col justify-center">
-        {console.log('in div')}
+      <h1 className="text-white mt-8 mb-6 font-urbanist text-5xl px-10">Showing all tier lists</h1>
+      {lists &&
+      
+      <div className="container-for-cards-container flex justify-center">
+        <div className="cards flex flex-col justify-center max-w-lg">
         {lists.map((list: any) => (
-          <Link to='/' className="card" key={list.id}>
-            <div className="card-image">
-              <img src={`${list.image}`} alt={`Image for the ${list.name} tier list`} />
-            </div>
-            
-            <h2 className="text-white">{list.name}</h2>
-            <p className="text-white"> <span>{`${list.votes} votes`}</span> <span>{`${list.numItems} items`}</span> </p>
-          </Link>
+          <Card list={list} />
         ))}
-      </div>}
+        </div>
+      </div>
+      
+      
+      }
     </div>
   );
 };
