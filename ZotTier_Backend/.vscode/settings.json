@@ -1,5 +1,0 @@
-{
-  "appService.preDeployTask": "publish-release",
-  "appService.deploySubpath": "bin\\Release\\net7.0\\publish",
-  "appService.defaultWebAppToDeploy": "undefined/subscriptions/62062556-00ca-434c-9633-273ffd527150/resourceGroups/zottierOfficial/providers/Microsoft.Web/sites/seancfong-zottier"
-}
