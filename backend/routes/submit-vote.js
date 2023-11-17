@@ -12,16 +12,18 @@ submitVote.post('/', async (req, res) => {
         pool.getConnection((err, connection) => {
             if (err) throw err;
 
-            let postBody = req.body;
-            let queryInputData = [postBody.rank, postBody.tierListId, postBody.itemName];
-            connection.query(sql, queryInputData, (err, result) => {
-                if (err) throw err;
+            for (let i = 0; i < req.body.length; i++) {
+                let reqBody = req.body[i];
 
-                console.log(result.info);
-                res.send("Data Posted!")
+                connection.query(sql, [reqBody.rank, reqBody.tierListId, reqBody.itemName], (err, result) => {
+                    if (err) throw err;
 
-                connection.release();
-            });
+                    console.log(result.info);
+                });
+            }
+
+            res.send("Data Posted!");
+            connection.release();
         });
 
     } catch (err) {
