@@ -16,7 +16,7 @@ const letterColorMaps: LetterColorMap[] = [
   { label: "F", color: "#1C1C1C" },
 ];
 
-const TierList = (props: Props) => {
+const TierListStatic = (props: Props) => {
   return (
     <div className="flex flex-col w-full gap-1 p-1 bg-slate-400 backdrop-blur-sm bg-opacity-10 rounded-2xl">
       <>
@@ -42,4 +42,4 @@ const TierList = (props: Props) => {
   );
 };
 
-export default TierList;
+export default TierListStatic;

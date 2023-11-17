@@ -5,3 +5,9 @@ export type TierList = {
   numItems: number;
   votes: number;
 };
+
+export type TierListItem = {
+  index: number;
+  name: string;
+  imageUrl: string;
+};
