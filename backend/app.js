@@ -4,7 +4,6 @@ const app = express()
 const port = process.env.PORT || 5000;
 
 // IMPORT ROUTES
-const user = require('./routes/user');
 const tierlist_browse = require('./routes/tierlist-browse');
 const tierlist_view = require("./routes/tierlist")
 const submit_vote = require('./routes/submit-vote');
@@ -12,7 +11,6 @@ const submit_vote = require('./routes/submit-vote');
 app.use(cors())
 app.use(express.json());
 
-app.use('/user', user);
 app.use('/tierlist-browse', tierlist_browse);
 app.use('/tierlist', tierlist_view);
 app.use('/submit-vote', submit_vote);

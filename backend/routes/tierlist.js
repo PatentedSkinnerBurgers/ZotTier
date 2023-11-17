@@ -22,10 +22,10 @@ tierListView.get('/', async (req, res) => {
                 }
 
                 result.forEach(rowData => {
-                    tiers[rowData.voteSum === 0 ? 0 : Math.round(rowData.numVotes / rowData.voteSum)].push(rowData);
+                    let {numVotes, voteSum} = rowData;
+                    tiers[numVotes === 0 ? 0 : Math.round(voteSum / numVotes)].push(rowData);
                 });
 
-                console.log(tiers);
                 res.send(tiers);
 
                 connection.release();

@@ -17,7 +17,7 @@ listBrowseRouter.get('/', async (req, res) => {
 
             connection.query(sql, (err, result) => {
                 if (err) throw err;
-                console.log(result);
+
                 res.send(result);
 
                 connection.release();
