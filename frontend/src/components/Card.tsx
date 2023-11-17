@@ -9,7 +9,7 @@ const Card = (props: Props) => {
     const list:any = props.list;
 
     return (
-        <Link to='/' className="card" key={list.id}>
+        <Link to='/' className="card my-4" key={list.id}>
             <div className="card-image">
               <img src={`${list.image}`} alt={`Image for the ${list.name} tier list`} />
             </div>
