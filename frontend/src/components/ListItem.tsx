@@ -1,10 +1,16 @@
 import "../assets/css/pages.css";
 import React from "react";
 import { useDraggable } from "@dnd-kit/core";
+import cn from "classnames";
 
-type Props = { name: string; imageUrl: string; index: number };
+type Props = {
+  name: string;
+  imageUrl: string;
+  index: number;
+  isDraggable: boolean;
+};
 
-const ListItem = ({ name, imageUrl, index }: Props) => {
+const ListItem = ({ name, imageUrl, index, isDraggable }: Props) => {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: `draggable-${index}`,
     data: {
@@ -24,9 +30,17 @@ const ListItem = ({ name, imageUrl, index }: Props) => {
       style={style}
       {...listeners}
       {...attributes}
-      className="p-4 mx-2 bg-pink-500 text-zt-light cursor-grab active:cursor-grabbing"
+      className={cn(
+        "relative rounded-md overflow-hidden m-1 mx-2",
+        isDraggable ? "cursor-grab active:cursor-grabbing" : "",
+      )}
     >
-      {name}
+      <div className="absolute top-0 left-0 w-full h-full bg-slate-900" />
+      <img
+        src={imageUrl}
+        alt={name}
+        className="relative z-10 object-cover w-20 h-20"
+      />
     </button>
   );
 };

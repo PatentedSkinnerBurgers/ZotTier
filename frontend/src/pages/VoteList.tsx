@@ -1,12 +1,7 @@
 import "../assets/css/pages.css";
 import React, { useState } from "react";
 import TierListDroppable from "../components/TierListDroppable";
-import {
-  DndContext,
-  DragEndEvent,
-  DragStartEvent,
-  rectIntersection,
-} from "@dnd-kit/core";
+import { DndContext, DragEndEvent, rectIntersection } from "@dnd-kit/core";
 import ListItem from "../components/ListItem";
 import { Link } from "react-router-dom";
 import { TierListItem } from "../types/tierlist";
@@ -19,7 +14,7 @@ export type TierListRowType = {
   items: TierListItem[];
 };
 
-const rowsArray: TierListRowType[] = [
+const tierListRowTemplate: TierListRowType[] = [
   { label: "S", color: "#7A00C5", items: [] },
   { label: "A", color: "#2977AF", items: [] },
   { label: "B", color: "#127652", items: [] },
@@ -52,7 +47,7 @@ const title = "";
 
 const VoteList = (props: Props) => {
   const [rowContainerItems, setRowContainerItems] =
-    useState<TierListRowType[]>(rowsArray);
+    useState<TierListRowType[]>(tierListRowTemplate);
   const [unusedItems, setUnusedItems] = useState<TierListItem[]>(tempItems);
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -139,7 +134,12 @@ const VoteList = (props: Props) => {
             <div className="h-full border-2 rounded-lg border-[rgba(238,238,238,0.25)]">
               {unusedItems.map(({ name, imageUrl, index }: TierListItem) => (
                 <React.Fragment key={index}>
-                  <ListItem name={name} imageUrl={imageUrl} index={index} />
+                  <ListItem
+                    name={name}
+                    imageUrl={imageUrl}
+                    index={index}
+                    isDraggable={true}
+                  />
                 </React.Fragment>
               ))}
             </div>

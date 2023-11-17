@@ -1,9 +1,9 @@
 export type TierList = {
   id: number;
-  image: string;
+  imageUrl: string;
+  itemCount: number;
   name: string;
-  numItems: number;
-  votes: number;
+  totalVotes: number;
 };
 
 export type TierListItem = {

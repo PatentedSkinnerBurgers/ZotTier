@@ -24,7 +24,7 @@ const TierListDroppable = ({ rowContainerItems }: TierListDroppableProps) => {
               </div>
               {/* Items */}
               <div className="flex-1 border-2 border-[rgba(118,118,118,0.25)] rounded-lg bg-slate-300 bg-opacity-5">
-                <TierListRow label={label} items={items} />
+                <TierListRow label={label} items={items} isDraggable={true} />
               </div>
             </div>
           );

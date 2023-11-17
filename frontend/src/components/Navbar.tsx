@@ -10,7 +10,7 @@ const Navbar = (props: Props) => {
         <Link to="/" className="text-3xl font-semibold">
           ZotTier
         </Link>
-        <button className="text-lg">Sign in</button>
+        {/* <button className="text-lg">Sign in</button> */}
       </div>
       <hr className="bg-gradient-to-r from-violet-700 to-violet-400 h-0.5 border-0" />
     </nav>

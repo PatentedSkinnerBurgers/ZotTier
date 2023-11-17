@@ -6,9 +6,10 @@ import ListItem from "./ListItem";
 type Props = {
   label: string;
   items: TierListItem[];
+  isDraggable: boolean;
 };
 
-const TierListRow = ({ label, items }: Props) => {
+const TierListRow = ({ label, items, isDraggable }: Props) => {
   const { isOver, setNodeRef } = useDroppable({
     id: `droppable-${label}`,
     data: {
@@ -27,7 +28,12 @@ const TierListRow = ({ label, items }: Props) => {
     >
       {items.map(({ name, imageUrl, index }) => (
         <React.Fragment key={index}>
-          <ListItem name={name} imageUrl={imageUrl} index={index} />
+          <ListItem
+            name={name}
+            imageUrl={imageUrl}
+            index={index}
+            isDraggable={isDraggable}
+          />
         </React.Fragment>
       ))}
     </div>
