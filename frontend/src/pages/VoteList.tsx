@@ -1,10 +1,12 @@
 import "../assets/css/pages.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TierListDroppable from "../components/TierListDroppable";
 import { DndContext, DragEndEvent, rectIntersection } from "@dnd-kit/core";
 import ListItem from "../components/ListItem";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { TierListItem } from "../types/tierlist";
+import { ViewListResponseIndex } from "./ViewList";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -14,41 +16,48 @@ export type TierListRowType = {
   items: TierListItem[];
 };
 
-const tierListRowTemplate: TierListRowType[] = [
-  { label: "S", color: "#7A00C5", items: [] },
-  { label: "A", color: "#2977AF", items: [] },
-  { label: "B", color: "#127652", items: [] },
-  { label: "C", color: "#7F543B", items: [] },
-  { label: "D", color: "#682D3C", items: [] },
-  { label: "F", color: "#1C1C1C", items: [] },
-];
-
-const tempItems: TierListItem[] = [
-  { name: "zero", imageUrl: "", index: 0 },
-  { name: "one", imageUrl: "", index: 1 },
-  { name: "two", imageUrl: "", index: 2 },
-  { name: "zero", imageUrl: "", index: 3 },
-  { name: "one", imageUrl: "", index: 4 },
-  { name: "two", imageUrl: "", index: 5 },
-  { name: "zero", imageUrl: "", index: 6 },
-  { name: "one", imageUrl: "", index: 7 },
-  { name: "two", imageUrl: "", index: 8 },
-  { name: "zero", imageUrl: "", index: 9 },
-  { name: "one", imageUrl: "", index: 10 },
-  { name: "two", imageUrl: "", index: 11 },
-  { name: "zero", imageUrl: "", index: 12 },
-  { name: "one", imageUrl: "", index: 13 },
-  { name: "two", imageUrl: "", index: 14 },
-  { name: "zero", imageUrl: "", index: 15 },
-  { name: "one", imageUrl: "", index: 16 },
-];
-
 const title = "";
 
 const VoteList = (props: Props) => {
-  const [rowContainerItems, setRowContainerItems] =
-    useState<TierListRowType[]>(tierListRowTemplate);
-  const [unusedItems, setUnusedItems] = useState<TierListItem[]>(tempItems);
+  const { id } = useParams();
+  const [rowContainerItems, setRowContainerItems] = useState<TierListRowType[]>(
+    [
+      { label: "S", color: "#7A00C5", items: [] },
+      { label: "A", color: "#2977AF", items: [] },
+      { label: "B", color: "#127652", items: [] },
+      { label: "C", color: "#7F543B", items: [] },
+      { label: "D", color: "#682D3C", items: [] },
+      { label: "F", color: "#1C1C1C", items: [] },
+    ],
+  );
+  const [unusedItems, setUnusedItems] = useState<TierListItem[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_ENDPOINT_URL}/tierlist?id=${id}`)
+      .then((response) => response.json())
+      .then((data: ViewListResponseIndex[][]) => {
+        console.log(data);
+        let newUnusedItems: TierListItem[] = [];
+
+        let ithItemFound = 0;
+
+        data.forEach((items: ViewListResponseIndex[]) => {
+          items.forEach((item: ViewListResponseIndex) => {
+            let newTierListItem: TierListItem = {
+              index: ithItemFound,
+              name: item.name,
+              imageUrl: item.imageUrl,
+            };
+            newUnusedItems.push(newTierListItem);
+            ++ithItemFound;
+          });
+        });
+
+        setUnusedItems(newUnusedItems);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -111,17 +120,25 @@ const VoteList = (props: Props) => {
 
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
-      <h1 className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-8 mb-6 text-5xl text-white">
-        Tier List: {title} awesome placeholder
+      <div className="max-w-[2048px] w-3/4 mx-auto mt-8 mb-2 ">
+        <button
+          className="px-0 text-center rounded-lg text-3x1 text-violet-400"
+          onClick={() => navigate(-1)}
+        >
+          Go Back
+        </button>
+      </div>
+      <h1 className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-1 mb-6 text-5xl text-white font-bold">
+        {title} placeholder
       </h1>
-      <div className="flex justify-end gap-5 pb-5 pr-5 mx-auto font-semibold pl-9">
+      {/* <div className="flex justify-end gap-5 pb-5 pr-5 mx-auto font-semibold pl-9">
         <Link
           to="" //NEED TO ADD LOCATON ON CLICK
           className="w-2/5 px-12 py-3 pb-5 text-3xl text-center transition-all duration-500 rounded-lg text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900"
         >
           Zot your vote!
         </Link>
-      </div>
+      </div> */}
       <DndContext
         collisionDetection={rectIntersection}
         onDragEnd={handleDragEnd}

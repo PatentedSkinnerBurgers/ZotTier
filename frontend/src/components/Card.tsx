@@ -27,12 +27,8 @@ const Card = ({ cardList }: CardProps) => {
               {name}
             </h2>
           </div>
-          <div className="relative">
-            <IconContext.Provider value={{ color: "white", size: "3em" }}>
-              <div>
-                <FaArrowCircleRight />
-              </div>
-            </IconContext.Provider>
+          <div className="relative flex items-end align-bottom">
+            <FaArrowCircleRight className="text-5xl text-zt-light" />
           </div>
         </div>
       </div>

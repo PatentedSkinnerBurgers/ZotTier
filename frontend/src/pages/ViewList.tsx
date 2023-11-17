@@ -5,7 +5,7 @@ import TierListStatic from "../components/TierListStatic";
 import { TierListRowType } from "./VoteList";
 import { TierListItem } from "../types/tierlist";
 
-type ViewListResponseIndex = {
+export type ViewListResponseIndex = {
   tierListId: number;
   name: string;
   numVotes: number;
@@ -18,7 +18,7 @@ type Props = {};
 const title = "";
 
 const ViewList = (props: Props) => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [rowContainerItems, setRowContainerItems] = useState<TierListRowType[]>(
     [],
   );
@@ -60,26 +60,27 @@ const ViewList = (props: Props) => {
 
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
-      <div className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-8 mb-6 ">
+      <div className="max-w-[2048px] w-3/4 mx-auto mt-8 mb-2 ">
         <Link
           to="../browse/"
-          className="px-12 pb-1 text-3xl text-center rounded-lg text-neutral-600"
+          className="px-0 text-center rounded-lg text-3x1 text-violet-400"
         >
           Go Back
         </Link>
-        <h1 className="text-5xl font-bold text-white">Tier List: yes</h1>
+      </div>
+      <div className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-1 mb-6 flex justify-between">
+        <h1 className="inline-block text-5xl font-bold text-white">
+          placeholder
+        </h1>
+        <Link
+          to={`../vote-list/${id}`}
+          className="px-6 py-3 text-center transition-all duration-500 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900 align-center"
+        >
+          Make your own entry here
+        </Link>
       </div>
 
       <div className="mx-auto font-semibold ">
-        <div className="flex justify-e mx-auto mt-8 mb-6 font-semibold">
-          <Link
-            to="../vote-list/1"
-            className="w-3/4 px-12 py-3 pb-5 text-3xl text-center transition-all duration-500 rounded-lg text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900"
-          >
-            Make your own entry here
-          </Link>
-        </div>
-
         <div className="w-3/4 pb-5 mx-auto">
           <TierListStatic rowContainerItems={rowContainerItems} />
         </div>
