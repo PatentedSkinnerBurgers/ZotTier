@@ -13,8 +13,7 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "client": "yarn --cwd client run start",
     "server": "nodemon app",
-    "start": "concurrently \"yarn run server\" \"yarn run client\""
+    "start": "yarn app"
   }
 }

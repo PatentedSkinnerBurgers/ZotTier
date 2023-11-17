@@ -1,12 +1,22 @@
 import "../assets/css/pages.css";
 import React, { useEffect, useState } from "react";
 import TierListDroppable from "../components/TierListDroppable";
-import { DndContext, DragEndEvent, rectIntersection } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  rectIntersection,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+} from "@dnd-kit/core";
 import ListItem from "../components/ListItem";
 import { useParams } from "react-router-dom";
 import { TierListItem } from "../types/tierlist";
 import { ViewListResponseIndex } from "./ViewList";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowBack } from "react-icons/io";
 
 type Props = {};
 
@@ -25,18 +35,22 @@ export type TierListRowType = {
 const VoteList = (props: Props) => {
   const { id } = useParams();
   const [rowContainerItems, setRowContainerItems] = useState<TierListRowType[]>(
-    [
+    [],
+  );
+  const [unusedItems, setUnusedItems] = useState<TierListItem[]>([]);
+  const [tierListName, setTierListName] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setRowContainerItems([
       { label: "S", color: "#7A00C5", items: [] },
       { label: "A", color: "#2977AF", items: [] },
       { label: "B", color: "#127652", items: [] },
       { label: "C", color: "#7F543B", items: [] },
       { label: "D", color: "#682D3C", items: [] },
       { label: "F", color: "#1C1C1C", items: [] },
-    ],
-  );
-  const [unusedItems, setUnusedItems] = useState<TierListItem[]>([]);
-  const [tierListName, setTierListName] = useState<string | null>(null);
-  const navigate = useNavigate();
+    ]);
+  }, []);
 
   const submitVote = () => {
     console.log(rowContainerItems);
@@ -165,51 +179,64 @@ const VoteList = (props: Props) => {
     }
   };
 
+  const mouseSensor = useSensor(MouseSensor);
+  const touchSensor = useSensor(TouchSensor);
+  const keyboardSensor = useSensor(KeyboardSensor);
+
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
+
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
-      <div className="max-w-[2048px] w-3/4 mx-auto mt-8 mb-2 ">
-        <button
-          className="px-0 text-center rounded-lg text-3x1 text-violet-400"
-          onClick={() => navigate(-1)}
+      <div className="px-5 md:px-10 mx-auto max-w-[1600px]">
+        <div className="mx-auto mt-8 mb-2">
+          <button
+            className="px-0 text-center rounded-lg text-3x1 text-violet-400"
+            onClick={() => navigate(-1)}
+          >
+            <IoIosArrowBack className="inline-block pb-1" />
+            Go Back
+          </button>
+        </div>
+        <h1 className="mx-auto mt-1 text-5xl font-bold text-zt-light">
+          {tierListName}
+        </h1>
+        <p className="pb-5 mt-2 mb-1 tracking-wide text-zt-light font-urbanist ">
+          Contributing your votes to this tier list
+        </p>
+        <DndContext
+          collisionDetection={rectIntersection}
+          onDragEnd={handleDragEnd}
+          sensors={sensors}
         >
-          Go Back
-        </button>
-      </div>
-      <h1 className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-1 mb-6 text-5xl text-white font-bold">
-        {tierListName}
-      </h1>
-      <div className="flex justify-end gap-5 pb-5 pr-5 mx-auto font-semibold pl-9">
-        <button
-          className="w-2/5 px-12 py-3 pb-5 text-3xl text-center transition-all duration-500 rounded-lg text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900"
-          onClick={submitVote}
-        >
-          Zot your vote!
-        </button>
-      </div>
-      <DndContext
-        collisionDetection={rectIntersection}
-        onDragEnd={handleDragEnd}
-      >
-        <div className="flex gap-5 px-5 pb-5 mx-auto">
-          <div className="w-3/5">
-            <TierListDroppable rowContainerItems={rowContainerItems} />
-          </div>
-          <div className="w-2/5">
-            <div className="h-full border-2 rounded-lg border-[rgba(238,238,238,0.25)] flex flex-wrap justify-center items-start content-start">
-              {unusedItems.map(({ name, imageUrl, index }: TierListItem) => (
-                <React.Fragment key={index}>
-                  <ListItem
-                    name={name}
-                    imageUrl={imageUrl}
-                    index={index}
-                    isDraggable={true}
-                  />
-                </React.Fragment>
-              ))}
+          <div className="flex flex-col gap-5 pb-5 mx-auto md:flex-row">
+            <div className="md:w-3/5 xl:w-3/4">
+              <TierListDroppable rowContainerItems={rowContainerItems} />
+            </div>
+            <div className="md:w-2/5 xl:w-1/4">
+              <div className="h-fit border-2 rounded-lg border-[rgba(238,238,238,0.1)] flex flex-wrap justify-center items-start content-start">
+                {unusedItems.map(({ name, imageUrl, index }: TierListItem) => (
+                  <React.Fragment key={index}>
+                    <ListItem
+                      name={name}
+                      imageUrl={imageUrl}
+                      index={index}
+                      isDraggable={true}
+                    />
+                  </React.Fragment>
+                ))}
+              </div>
+              <div className="flex justify-center mx-auto mt-3 font-semibold">
+                <button
+                  className="w-full px-6 py-3 text-lg text-center transition-all duration-200 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:opacity-80 align-center h-fit"
+                  onClick={submitVote}
+                >
+                  Zot your vote!
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </DndContext>
+        </DndContext>
+      </div>
     </div>
   );
 };

@@ -21,10 +21,10 @@ const Browse = (props: Props) => {
   }, []);
 
   return (
-    <div className="min-h-screen px-10 pt-20 browse-gradient">
-      <div className="max-w-[1024px] w-4/5 mx-auto">
-        <h1 className="mt-8 mb-6 text-5xl text-white font-urbanist">
-          Showing all tier lists
+    <div className="min-h-screen px-5 pt-20 md:px-10 browse-gradient">
+      <div className="max-w-3xl mx-auto md:w-4/5">
+        <h1 className="mt-8 mb-6 text-2xl text-neutral-300 font-rubik">
+          Browsing all tier lists
         </h1>
         {lists && (
           <div className="flex flex-col justify-center w-full gap-10">

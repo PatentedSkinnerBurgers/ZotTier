@@ -8,7 +8,7 @@ type TierListDroppableProps = {
 
 const TierListDroppable = ({ rowContainerItems }: TierListDroppableProps) => {
   return (
-    <div className="flex flex-col w-full gap-1 p-1 bg-slate-400 backdrop-blur-sm bg-opacity-10 rounded-2xl">
+    <div className="flex flex-col w-full gap-1 p-1 bg-slate-400 backdrop-blur-sm bg-opacity-10 rounded-2xl border-2 border-[rgba(118,118,118,0.1)]">
       <>
         {rowContainerItems.map(({ label, color, items }) => {
           return (

@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import TierListStatic from "../components/TierListStatic";
 import { TierListRowType } from "./VoteList";
 import { TierListItem } from "../types/tierlist";
+import { IoIosArrowBack } from "react-icons/io";
 
 export type ViewListResponseIndex = {
   tierListName: string;
@@ -66,28 +67,34 @@ const ViewList = (props: Props) => {
 
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
-      <div className="max-w-[2048px] w-3/4 mx-auto mt-8 mb-2 ">
-        <Link
-          to="../browse/"
-          className="px-0 text-center rounded-lg text-3x1 text-violet-400"
-        >
-          Go Back
-        </Link>
-      </div>
-      <div className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-1 mb-6 flex justify-between">
-        <h1 className="inline-block text-5xl font-bold text-white">
-          {tierListName}
-        </h1>
-        <Link
-          to={`../vote-list/${id}`}
-          className="px-6 py-3 text-center transition-all duration-500 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900 align-center h-fit"
-        >
-          Make your own entry here
-        </Link>
-      </div>
+      <div className="px-5 md:px-10 mx-auto max-w-[1600px]">
+        <div className="mx-auto mt-8 mb-2 ">
+          <Link
+            to="../browse/"
+            className="px-0 text-center rounded-lg text-3x1 text-violet-400"
+          >
+            <IoIosArrowBack className="inline-block pb-1" />
+            Go Back
+          </Link>
+        </div>
+        <div className="flex flex-col items-start justify-between gap-3 pb-5 mx-auto md:items-end md:flex-row">
+          <div>
+            <p className="mt-2 mb-1 tracking-wide text-zt-light font-urbanist">
+              Viewing the average votes for:
+            </p>
+            <h1 className="inline-block text-5xl font-bold text-zt-light">
+              {tierListName}
+            </h1>
+          </div>
+          <Link
+            to={`../vote-list/${id}`}
+            className="px-6 py-3 text-center transition-all duration-200 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:opacity-80 align-center h-fit w-fit"
+          >
+            Make your own entry
+          </Link>
+        </div>
 
-      <div className="mx-auto font-semibold ">
-        <div className="w-3/4 pb-5 mx-auto">
+        <div className="pb-5">
           <TierListStatic rowContainerItems={rowContainerItems} />
         </div>
       </div>
