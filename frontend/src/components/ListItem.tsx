@@ -9,6 +9,7 @@ const ListItem = ({ name, imageUrl, index }: Props) => {
     id: `draggable-${index}`,
     data: {
       type: "list-item",
+      item: { name, imageUrl, index },
     },
   });
   const style = transform

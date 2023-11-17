@@ -13,15 +13,18 @@ const TierListRow = ({ label, items }: Props) => {
     id: `droppable-${label}`,
     data: {
       accepts: "list-item",
+      dropId: label,
     },
   });
   const style = {
-    color: isOver ? "green" : undefined,
+    backgroundColor: isOver ? "green" : undefined,
   };
   return (
     <div ref={setNodeRef} style={style} className="w-full h-full">
       {items.map(({ name, imageUrl, index }) => (
-        <ListItem name={name} imageUrl={imageUrl} index={index} />
+        <React.Fragment key={index}>
+          <ListItem name={name} imageUrl={imageUrl} index={index} />
+        </React.Fragment>
       ))}
     </div>
   );
