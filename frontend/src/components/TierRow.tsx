@@ -1,13 +1,12 @@
 import React from "react";
-
-type Props = {};
+import TierLabel from "./TierLabel";
+type Props = {
+  label: string;
+  color: string;
+};
 
 const TierRow = (props: Props) => {
-  return (
-    <tr className="">
-        
-    </tr>
-  );
+  return <div></div>;
 };
 
 export default TierRow;
