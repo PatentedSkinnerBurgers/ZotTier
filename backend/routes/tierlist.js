@@ -23,7 +23,9 @@ tierListView.get('/', async (req, res) => {
 
                 result.forEach(rowData => {
                     let {numVotes, voteSum} = rowData;
-                    tiers[numVotes === 0 ? 0 : Math.round(voteSum / numVotes)].push(rowData);
+                    let average = rowData.average = numVotes === 0 ? 0 : voteSum / numVotes;
+
+                    tiers[Math.round(average)].push(rowData);
                 });
 
                 res.send(tiers);
