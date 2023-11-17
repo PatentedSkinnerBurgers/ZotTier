@@ -11,7 +11,7 @@ const ViewList = (props: Props) => {
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
       <h1 className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-8 mb-6 text-5xl text-white font-bold">
-        Tier List: {title} awesome placeholder
+        Tier List: {title}
       </h1>
       <div className="flex justify-center mx-auto mt-8 mb-6 font-semibold">
         <Link

@@ -1,7 +1,12 @@
 import "../assets/css/pages.css";
 import React, { useState } from "react";
 import TierListDroppable from "../components/TierListDroppable";
-import { DndContext, DragEndEvent, rectIntersection } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  rectIntersection,
+} from "@dnd-kit/core";
 import ListItem from "../components/ListItem";
 import { Link } from "react-router-dom";
 import { TierListItem } from "../types/tierlist";
@@ -24,9 +29,23 @@ const rowsArray: TierListRowType[] = [
 ];
 
 const tempItems: TierListItem[] = [
-  { name: "one", imageUrl: "", index: 0 },
-  { name: "two", imageUrl: "", index: 1 },
-  { name: "three", imageUrl: "", index: 2 },
+  { name: "zero", imageUrl: "", index: 0 },
+  { name: "one", imageUrl: "", index: 1 },
+  { name: "two", imageUrl: "", index: 2 },
+  { name: "zero", imageUrl: "", index: 3 },
+  { name: "one", imageUrl: "", index: 4 },
+  { name: "two", imageUrl: "", index: 5 },
+  { name: "zero", imageUrl: "", index: 6 },
+  { name: "one", imageUrl: "", index: 7 },
+  { name: "two", imageUrl: "", index: 8 },
+  { name: "zero", imageUrl: "", index: 9 },
+  { name: "one", imageUrl: "", index: 10 },
+  { name: "two", imageUrl: "", index: 11 },
+  { name: "zero", imageUrl: "", index: 12 },
+  { name: "one", imageUrl: "", index: 13 },
+  { name: "two", imageUrl: "", index: 14 },
+  { name: "zero", imageUrl: "", index: 15 },
+  { name: "one", imageUrl: "", index: 16 },
 ];
 
 const title = "";
@@ -38,8 +57,61 @@ const VoteList = (props: Props) => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+    const draggedItem = active.data.current?.item;
+    const draggedIndex = draggedItem.index;
 
-    console.log(`${active.id} dropped into ${over?.id}`);
+    const droppedLabel = over?.data.current?.dropId;
+
+    console.log(`${draggedIndex} dropped into ${droppedLabel}`);
+
+    // clear out every instance before modifying
+    const newUnusedItems: TierListItem[] = unusedItems.filter(({ index }) => {
+      return draggedIndex !== index;
+    });
+
+    const filteredRowContainerItems: TierListRowType[] = rowContainerItems.map(
+      (rowContainerItem: TierListRowType) => {
+        rowContainerItem.items = rowContainerItem.items.filter(
+          (item: TierListItem) => {
+            return item.index !== draggedIndex;
+          },
+        );
+
+        return rowContainerItem;
+      },
+    );
+
+    if (droppedLabel) {
+      // add to corresponding row
+      let newRowContainerItems: TierListRowType[] =
+        filteredRowContainerItems.map((rowContainerItem: TierListRowType) => {
+          if (rowContainerItem.label !== droppedLabel) return rowContainerItem;
+
+          let newTierListItem: TierListItem = {
+            name: draggedItem.name,
+            imageUrl: draggedItem.imageUrl,
+            index: draggedIndex,
+          };
+          let newRowItems = [...rowContainerItem.items, newTierListItem];
+
+          rowContainerItem.items = newRowItems;
+          return rowContainerItem;
+        });
+
+      setRowContainerItems(newRowContainerItems);
+      setUnusedItems(newUnusedItems);
+    } else {
+      // add back to unused
+      let newTierListItem: TierListItem = {
+        name: draggedItem.name,
+        imageUrl: draggedItem.imageUrl,
+        index: draggedIndex,
+      };
+      newUnusedItems.push(newTierListItem);
+
+      setUnusedItems(newUnusedItems);
+      setRowContainerItems(filteredRowContainerItems);
+    }
   };
 
   return (
@@ -65,8 +137,10 @@ const VoteList = (props: Props) => {
           </div>
           <div className="w-2/5">
             <div className="h-full border-2 rounded-lg border-[rgba(238,238,238,0.25)]">
-              {unusedItems.map(({ name, imageUrl, index }: any) => (
-                <ListItem name={name} imageUrl={imageUrl} index={index} />
+              {unusedItems.map(({ name, imageUrl, index }: TierListItem) => (
+                <React.Fragment key={index}>
+                  <ListItem name={name} imageUrl={imageUrl} index={index} />
+                </React.Fragment>
               ))}
             </div>
           </div>

@@ -10,7 +10,7 @@ const fakeLists: TierList[] = [
   {
     id: 1,
     image: "https://photos.prnewswire.com/prnfull/20110719/LA37366",
-    name: "JAMBA JUICE JUICES TIER LIST OH MY GULAY",
+    name: "JAMBA JUICE",
     numItems: 12,
     votes: 23,
   },

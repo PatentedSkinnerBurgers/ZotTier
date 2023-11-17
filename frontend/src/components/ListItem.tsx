@@ -9,6 +9,7 @@ const ListItem = ({ name, imageUrl, index }: Props) => {
     id: `draggable-${index}`,
     data: {
       type: "list-item",
+      item: { name, imageUrl, index },
     },
   });
   const style = transform
@@ -23,7 +24,7 @@ const ListItem = ({ name, imageUrl, index }: Props) => {
       style={style}
       {...listeners}
       {...attributes}
-      className="p-4 mx-2 bg-pink-500 text-zt-light"
+      className="p-4 mx-2 bg-pink-500 text-zt-light cursor-grab active:cursor-grabbing"
     >
       {name}
     </button>
