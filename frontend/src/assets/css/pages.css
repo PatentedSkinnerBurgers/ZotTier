@@ -1,0 +1,30 @@
+@tailwind components;
+
+@layer components {
+  .landing-gradient {
+    background: linear-gradient(
+      45deg,
+      #21262a 0%,
+      #242a28 25%,
+      #1f2129 75%,
+      #242929 100%
+    );
+  }
+
+  .browse-gradient {
+    background: linear-gradient(243deg, #1b1b1b 0%, #1d1926 50%, #181818 100%);
+  }
+
+  .header-zero {
+    @apply font-bold;
+    background: linear-gradient(
+      180deg,
+      #faf6ff 0%,
+      #e2ccff 52.5%,
+      #4d405e 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

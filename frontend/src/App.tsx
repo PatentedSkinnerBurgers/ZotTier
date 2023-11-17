@@ -1,3 +1,4 @@
+import "./assets/css/fonts.css";
 import React, { useEffect } from "react";
 import Landing from "./pages/Landing";
 import Browse from "./pages/Browse";
