@@ -10,6 +10,7 @@ const Landing = (props: Props) => {
     <div className="landing-gradient h-screen min-h-[300px] px-10 pt-20 flex">
       <div className="max-w-[1280px] mx-auto flex lg:flex-row flex-col-reverse items-center justify-center lg:justify-start">
         <div className="absolute top-0 left-0 w-full h-full p-20 overflow-hidden pointer-events-none">
+          <div className="fixed top-0 left-0 w-full h-full pointer-events-none svg-pattern" />
           <LandingDecor />
         </div>
         {/* LEFT */}
@@ -19,7 +20,7 @@ const Landing = (props: Props) => {
             bias.
           </h1>
           <p className="pb-2 md:text-lg xl:text-xl font-rubik text-neutral-500">
-            Tier lists representing the collective opinion of UCI. Curated by
+            Tier lists aggregating the collective opinion of UCI. Curated by
             Anteaters, for Anteaters. ZOT your vote today.
           </p>
           <Link

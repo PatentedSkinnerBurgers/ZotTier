@@ -1,6 +1,14 @@
 @tailwind components;
 
 @layer components {
+  .svg-pattern {
+    background-image: radial-gradient(
+      rgba(150, 154, 160, 0.15) 1.4px,
+      rgba(0, 0, 0, 0) 1px
+    );
+    background-size: 30px 30px;
+  }
+
   .landing-gradient {
     background: linear-gradient(
       45deg,
@@ -26,5 +34,27 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #858585 #323232;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #323232;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #858585;
+    border-radius: 10px;
+    border: 0px solid #ffffff;
   }
 }

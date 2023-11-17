@@ -186,7 +186,8 @@ const VoteList = (props: Props) => {
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   return (
-    <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
+    <div className="w-full h-full min-h-screen pt-20 browse-gradient font-urbanist">
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none svg-pattern" />
       <div className="px-5 md:px-10 mx-auto max-w-[1600px]">
         <div className="mx-auto mt-8 mb-2">
           <button
@@ -201,7 +202,7 @@ const VoteList = (props: Props) => {
           {tierListName}
         </h1>
         <p className="pb-5 mt-2 mb-1 tracking-wide text-zt-light font-urbanist ">
-          Contributing your votes to this tier list
+          Contribute your votes to this tier list
         </p>
         <DndContext
           collisionDetection={rectIntersection}
@@ -230,7 +231,7 @@ const VoteList = (props: Props) => {
                   className="w-full px-6 py-3 text-lg text-center transition-all duration-200 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:opacity-80 align-center h-fit"
                   onClick={submitVote}
                 >
-                  Zot your vote!
+                  ZOT your vote!
                 </button>
               </div>
             </div>

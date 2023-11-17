@@ -67,6 +67,7 @@ const ViewList = (props: Props) => {
 
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none svg-pattern" />
       <div className="px-5 md:px-10 mx-auto max-w-[1600px]">
         <div className="mx-auto mt-8 mb-2 ">
           <Link

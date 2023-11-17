@@ -33,7 +33,7 @@ const ListItem = ({ name, imageUrl, index, isDraggable }: Props) => {
         {...listeners}
         {...attributes}
         className={cn(
-          "relative rounded-md overflow-hidden m-1 mx-2 text-zt-light h-fit touch-none",
+          "relative rounded-md overflow-hidden m-1 mx-2 text-zt-light h-fit touch-none border-2 border-[rgba(118,118,118,0.25)]",
           isDraggable ? "cursor-grab active:cursor-grabbing" : "",
         )}
       >
@@ -54,6 +54,7 @@ const ListItem = ({ name, imageUrl, index, isDraggable }: Props) => {
           "relative rounded-md overflow-hidden m-1 mx-2 text-zt-light h-fit",
           isDraggable ? "cursor-grab active:cursor-grabbing" : "cursor-default",
         )}
+        title={name}
       >
         <div className="absolute top-0 left-0 w-full h-full bg-slate-900" />
         <img

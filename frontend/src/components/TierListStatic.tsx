@@ -18,12 +18,12 @@ const TierListStatic = ({ rowContainerItems }: TierListStaticProps) => {
                 className="flex items-center justify-center w-20 h-20 md:w-24 md:h-24 border-2 border-[rgba(118,118,118,0.25)] rounded-lg"
                 style={{ backgroundColor: `${color}` }}
               >
-                <span className="text-5xl font-semibold text-zt-light">
+                <span className="text-5xl font-semibold transition-transform duration-200 text-zt-light hover:scale-105">
                   {label}
                 </span>
               </div>
               {/* Items */}
-              <div className="flex-1 border-2 border-[rgba(118,118,118,0.25)] rounded-lg bg-slate-300 bg-opacity-5">
+              <div className="flex-1 border-2 border-[rgba(118,118,118,0.25)] rounded-lg bg-slate-300 bg-opacity-5 hover:bg-slate-500 transition-all duration-200 hover:bg-opacity-5">
                 <TierListRow label={label} items={items} isDraggable={false} />
               </div>
             </div>
