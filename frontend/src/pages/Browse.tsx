@@ -37,7 +37,7 @@ const Browse = (props: Props) => {
   const [lists, setLists] = useState<TierList[]>([]);
 
   useEffect(() => {
-    fetch(url)
+    fetch("/")
       .then((res) => {
         if (res.ok) {
           console.log("Response ok");

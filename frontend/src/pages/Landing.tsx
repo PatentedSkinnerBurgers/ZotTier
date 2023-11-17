@@ -19,8 +19,8 @@ const Landing = (props: Props) => {
             bias.
           </h1>
           <p className="pb-2 text-lg font-rubik text-neutral-500">
-            ZOT your vote with some text that will be written soon to come for
-            Anteaters, by Anteaters.
+            Tier lists representing the collective opinion of UCI. Curated by
+            Anteaters, for Anteaters. ZOT your vote today.
           </p>
           <Link
             to="browse"
