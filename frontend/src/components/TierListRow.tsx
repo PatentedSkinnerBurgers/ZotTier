@@ -18,13 +18,14 @@ const TierListRow = ({ label, items, isDraggable }: Props) => {
     },
   });
   const style = {
-    backgroundColor: isOver ? "green" : undefined,
+    backgroundColor: isOver ? "rgba(136, 108, 219, 0.3)" : undefined,
+    borderRadius: isOver ? "6px" : undefined,
   };
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className="flex flex-wrap items-center w-full h-full"
+      className="flex flex-wrap items-center w-full h-full transition-colors duration-200"
     >
       {items.map(({ name, imageUrl, index }) => (
         <React.Fragment key={index}>

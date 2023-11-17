@@ -3,20 +3,24 @@ import React, { useEffect, useState } from "react";
 import TierListDroppable from "../components/TierListDroppable";
 import { DndContext, DragEndEvent, rectIntersection } from "@dnd-kit/core";
 import ListItem from "../components/ListItem";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TierListItem } from "../types/tierlist";
 import { ViewListResponseIndex } from "./ViewList";
 import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
+type SubmitVotePayloadItem = {
+  rank: number;
+  tierListId: number;
+  itemName: string;
+};
+
 export type TierListRowType = {
   label: string;
   color: string;
   items: TierListItem[];
 };
-
-const title = "";
 
 const VoteList = (props: Props) => {
   const { id } = useParams();
@@ -31,7 +35,44 @@ const VoteList = (props: Props) => {
     ],
   );
   const [unusedItems, setUnusedItems] = useState<TierListItem[]>([]);
+  const [tierListName, setTierListName] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const submitVote = () => {
+    console.log(rowContainerItems);
+    const payload: SubmitVotePayloadItem[] = [];
+
+    if (id) {
+      rowContainerItems
+        .slice()
+        .reverse()
+        .forEach((row: TierListRowType, index: number) => {
+          row.items.forEach((item: TierListItem) => {
+            payload.push({
+              rank: index,
+              tierListId: Number(id),
+              itemName: item.name,
+            });
+          });
+        });
+
+      console.log(payload);
+
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      };
+      fetch(
+        `${process.env.REACT_APP_API_ENDPOINT_URL}/submit-vote`,
+        requestOptions,
+      )
+        .then((response) => {
+          console.log(response);
+        })
+        .then(() => navigate(-1));
+    }
+  };
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_ENDPOINT_URL}/tierlist?id=${id}`)
@@ -41,12 +82,17 @@ const VoteList = (props: Props) => {
         let newUnusedItems: TierListItem[] = [];
 
         let ithItemFound = 0;
+        let tierListNameFound: string | null = null;
 
-        data.forEach((items: ViewListResponseIndex[]) => {
+        data.forEach((items: ViewListResponseIndex[], i: number) => {
           items.forEach((item: ViewListResponseIndex) => {
+            if (!tierListNameFound && item.tierListName) {
+              tierListNameFound = item.tierListName;
+            }
+
             let newTierListItem: TierListItem = {
               index: ithItemFound,
-              name: item.name,
+              name: item.itemName,
               imageUrl: item.imageUrl,
             };
             newUnusedItems.push(newTierListItem);
@@ -54,6 +100,7 @@ const VoteList = (props: Props) => {
           });
         });
 
+        setTierListName(tierListNameFound);
         setUnusedItems(newUnusedItems);
       })
       .catch((error) => console.log(error));
@@ -129,16 +176,16 @@ const VoteList = (props: Props) => {
         </button>
       </div>
       <h1 className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-1 mb-6 text-5xl text-white font-bold">
-        {title} placeholder
+        {tierListName}
       </h1>
-      {/* <div className="flex justify-end gap-5 pb-5 pr-5 mx-auto font-semibold pl-9">
-        <Link
-          to="" //NEED TO ADD LOCATON ON CLICK
+      <div className="flex justify-end gap-5 pb-5 pr-5 mx-auto font-semibold pl-9">
+        <button
           className="w-2/5 px-12 py-3 pb-5 text-3xl text-center transition-all duration-500 rounded-lg text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900"
+          onClick={submitVote}
         >
           Zot your vote!
-        </Link>
-      </div> */}
+        </button>
+      </div>
       <DndContext
         collisionDetection={rectIntersection}
         onDragEnd={handleDragEnd}
@@ -148,7 +195,7 @@ const VoteList = (props: Props) => {
             <TierListDroppable rowContainerItems={rowContainerItems} />
           </div>
           <div className="w-2/5">
-            <div className="h-full border-2 rounded-lg border-[rgba(238,238,238,0.25)]">
+            <div className="h-full border-2 rounded-lg border-[rgba(238,238,238,0.25)] flex flex-wrap justify-center items-start content-start">
               {unusedItems.map(({ name, imageUrl, index }: TierListItem) => (
                 <React.Fragment key={index}>
                   <ListItem

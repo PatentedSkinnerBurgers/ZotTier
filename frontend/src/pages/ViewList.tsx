@@ -6,8 +6,8 @@ import { TierListRowType } from "./VoteList";
 import { TierListItem } from "../types/tierlist";
 
 export type ViewListResponseIndex = {
-  tierListId: number;
-  name: string;
+  tierListName: string;
+  itemName: string;
   numVotes: number;
   voteSum: number;
   imageUrl: string;
@@ -15,13 +15,12 @@ export type ViewListResponseIndex = {
 
 type Props = {};
 
-const title = "";
-
 const ViewList = (props: Props) => {
   const { id } = useParams();
   const [rowContainerItems, setRowContainerItems] = useState<TierListRowType[]>(
     [],
   );
+  const [tierListName, setTierListName] = useState<string | null>(null);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_ENDPOINT_URL}/tierlist?id=${id}`)
@@ -39,6 +38,7 @@ const ViewList = (props: Props) => {
         ];
 
         let ithItemFound = 0;
+        let tierListNameFound: string | null = null;
 
         tierListRowTemplate.forEach((row: TierListRowType, i: number) => {
           const itemsOfThatTier = data[i];
@@ -46,17 +46,23 @@ const ViewList = (props: Props) => {
             let newTierListRowItem: TierListItem = {
               index: ithItemFound,
               imageUrl: itemOfThatTier.imageUrl,
-              name: itemOfThatTier.name,
+              name: itemOfThatTier.itemName,
             };
+
+            if (!tierListNameFound && itemOfThatTier.tierListName) {
+              tierListNameFound = itemOfThatTier.tierListName;
+            }
+
             row.items.push(newTierListRowItem);
             ++ithItemFound;
           });
         });
 
+        setTierListName(tierListNameFound);
         setRowContainerItems(tierListRowTemplate.reverse());
       })
       .catch((error) => console.log(error));
-  }, [id]);
+  }, [id, tierListName]);
 
   return (
     <div className="w-full min-h-screen pt-20 browse-gradient font-urbanist">
@@ -70,11 +76,11 @@ const ViewList = (props: Props) => {
       </div>
       <div className="max-w-[2048px] w-3/4 pb-5 mx-auto mt-1 mb-6 flex justify-between">
         <h1 className="inline-block text-5xl font-bold text-white">
-          placeholder
+          {tierListName}
         </h1>
         <Link
           to={`../vote-list/${id}`}
-          className="px-6 py-3 text-center transition-all duration-500 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900 align-center"
+          className="px-6 py-3 text-center transition-all duration-500 rounded-lg text-1xl w-1/8 text-zt-light bg-gradient-to-r from-violet-700 to-fuchsia-800 hover:bg-gradient-to-r hover:from-violet-800 hover:to-fuchsia-900 align-center h-fit"
         >
           Make your own entry here
         </Link>
