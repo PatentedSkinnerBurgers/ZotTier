@@ -14,7 +14,7 @@ const Browse = (props: Props) => {
   const fakeLists: any = [
     {
       id: 1,
-      image: 'https://cblproperty.blob.core.windows.net/production/assets/blt5a2a72eda2fddb43-Jamba_Juice_6613.png',
+      image: 'https://photos.prnewswire.com/prnfull/20110719/LA37366',
       name: 'JAMBA JUICE JUICES TIER LIST OH MY GULAY',
       numItems: 12,
       votes: 23
@@ -22,7 +22,7 @@ const Browse = (props: Props) => {
     {
       id: 2,
       image: 'https://cdn.vox-cdn.com/thumbor/3ZZw_J5a_Pnp1C_ChHoNR8H-uZU=/0x0:1999x1296/1200x800/filters:focal(841x489:1159x807)/cdn.vox-cdn.com/uploads/chorus_image/image/72478592/4_teams.0.jpeg',
-      name: 'Boba?????',
+      name: 'Boba',
       numItems: 7,
       votes: 70
     }, 
