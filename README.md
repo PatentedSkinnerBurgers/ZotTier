@@ -1,2 +1,5 @@
 # ZotTier
-[Insert Hook Here]
+
+## Inspiration
+
+
